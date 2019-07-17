@@ -11,8 +11,10 @@ not owned by Cat Inc.
 ## Updates:
 Version 0.0.1:
 First release of the program
+
 Version 0.0.2:
 Bug Fixes, Updates, etc
+
 Version 0.0.3:
 Bug fix in un-magicification calling IndexError whenever values exeded that supplied in the dictionary
 
