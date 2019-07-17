@@ -356,6 +356,7 @@ class MagicText:
     
     def main():
         global lookup
+        global dictmod
         printz('Please select a dictionary file, or enter the name of a new one.')
         printz('(Program does not handle non-txt files)')
         printz()
@@ -375,6 +376,7 @@ class MagicText:
             dictname = str(input('Dictionary Number or New Dictionary Filename : '))
         else:
             dictname = str(input('New Dictionary Filename (no extention) : '))
+            dictmod = 'str'
         if dictname.isdigit():
             dictname = dicts[int(dictname)-1]
         dictname = dictname+'.txt'
@@ -482,6 +484,8 @@ class MagicText:
                     printz('for the sorting algorythm.')
                     printz()
                     printz('Visit github.com/cat-ink for more projects by Cat Inc.')
+                    printz()
+                    prinyz('Source Code at https://github.com/CoolCat467/Magic-Text/')
                 else:#mode 8
                     printz('Thank you for using the '+NAME+' Program v'+__version__+'!')
                     break
