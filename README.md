@@ -18,6 +18,9 @@ Bug Fixes, Updates, etc
 Version 0.0.3:
 Bug fix in un-magicification calling IndexError whenever values exeded that supplied in the dictionary
 
+Version 0.0.4:
+Bug fixes, better implementation of several functions, better gui, better terminal mode
+
 ## About
 Magic Text will Magicify Text (make it shorter) and then later Un-Magicify it back into readable text. This is very usefull for say, sending quick messages to a friend without email/etc. You could write a message, like "Meet me at twelve O'Clock", which, Magicified, is "1G5 1G2 1c 1S2 1a3". This is significantly shorter, plus, no one can read it without having both the program and the exact same dictionary file.
 
