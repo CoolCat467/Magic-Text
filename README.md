@@ -1,5 +1,5 @@
 # Magic-Text
-Magic Text will Magicify Text (make it shorter) and then later Un-Magicify it back into readable text.
+Magic Text is able to Magicify Text into letters and numbers, and Un-Magicify letters and numbers back into readable text
 
 # VERY IMPORTANT NOTES:
 This program requires the Maths Module! https://github.com/CoolCat467/maths
