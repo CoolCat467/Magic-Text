@@ -23,7 +23,7 @@ except ImportError:
     else:
         PREBOOTERR = 'Maths module failed to import'
 
-DEV = True
+DEV = False
 STOPERRCATCHING = False
 NAME = 'Magic Text'
 __version__ = '0.0.2'
@@ -285,11 +285,14 @@ class MagicText:
         #make hex back into readable pos
         pos = []
         for hexz in data:
-            pos.append(int(hexz, base=16))
+            pos.append(int(hexz, base=16) - 1)
         #make words based on pos - 1
         words = []
         for read in pos:
-            words.append(lookup[int(read) - 1])
+            try:
+                words.append(lookup[read])
+            except IndexError:
+                words.append('InvalidWord')
         #formatting
         sentance = list(str(maths.seplist(words, ' ')).title())
         del sentance[len(sentance)-1]
