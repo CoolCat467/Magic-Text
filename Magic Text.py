@@ -26,7 +26,7 @@ except ImportError:
 DEV = False
 STOPERRCATCHING = False
 NAME = 'Magic Text'
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 MUST = (str(NAME+'.py'), 'maths.py')
 pyinstallered = False
 ISTERM = False
