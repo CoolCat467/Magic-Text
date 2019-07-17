@@ -28,7 +28,7 @@ STOPERRCATCHING = False
 NAME = 'Magic Text'
 __version__ = '0.0.4'
 MUST = (str(NAME+'.py'), 'maths.py')
-pyinstallered = True
+pyinstallered = False
 ISTERM = False
 global lookup
 global dictmod
