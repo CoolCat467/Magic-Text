@@ -34,7 +34,6 @@ Launch the program!
 
 ### Interface
 When you run the program, you should see the following screen:
-'''
 Copywrite (c) Cat Inc.
 All Rights Reserved.
 
@@ -46,13 +45,13 @@ Please select a dictionary file, or enter the name of a new one.
 (Program does not handle non-txt files)
 
 Pre-Existing Dictionaries:
-'''
+
 And here, it will list any .txt files found in the Magic Text folder.
 Then, it will ask for "Dictionary Number or New Dictionary Filename".
 Here, you enter either the number listed for the dictionary you want, or a new dictionary name.
 
 Now, you should see the following screen:
-'''
+
 Selected Dictionary "<Dictionary name you choose>.txt"
 
 Please Select An Option:
@@ -66,7 +65,7 @@ Please Select An Option:
 8. Quit
 
 Option : 
-'''
+
 And then, just enter whatever option you want, and it should be straight forward from there!
 
 Hope you like it!
