@@ -26,7 +26,7 @@ except ImportError:
 DEV = False
 STOPERRCATCHING = False
 NAME = 'Magic Text'
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 MUST = (str(NAME+'.py'), 'maths.py')
 pyinstallered = False
 ISTERM = False
@@ -556,8 +556,11 @@ def startup():
     global SYSNAME
     global NODENAME
     global CURFOLD
-    SYSNAME = str(os.uname()[0])
-    NODENAME = str(os.uname()[1])
+    SYSNAME = str(os.sys.platform.title())
+    if os.name == 'posix':
+        NODENAME = str(os.uname()[1])
+    else:
+        NODENAME = 'Unknown'
     os.chdir(os.path.split(os.sys.argv[0])[0])
     CURFOLD = str(os.path.split(os.getcwd())[1])
     pythontype = os.sys.executable.split(sep='/')[3]
@@ -606,7 +609,6 @@ def main():
     printz('Welcome to the '+NAME+' Program v'+__version__+'!')
     printz('Copywrite (c) Cat Inc.\nAll rights reserved.')
     printz()
-    time.sleep(5)
     errors = startup()
     if errors == '':
         if SYSNAME != 'Linux':
@@ -695,7 +697,7 @@ if __name__ == '__main__':
                 errormessage = str('ERR: %s' % error)
                 printz(errormessage, file=os.sys.stderr)
             printz()
-            if str(os.uname()[0]) != 'Linux':
+            if str(os.sys.platform.title()) != 'Linux':
                 printz('I told you there might be errors!')
                 printz()
         except KeyboardInterrupt:
