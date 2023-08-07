@@ -13,21 +13,28 @@ PREBOOTERR = 'NULL'
 try:
     tmp = 1
     import os, subprocess, time
-    tmp = 2
     from colorama import Fore
-    tmp = 3
+    tmp = 2
     import maths
+    tmp = 3
+    import numberProcessing
 except ImportError:
-    if not tmp == 3:
+    if not tmp in (2, 3):
         PREBOOTERR = 'A module failed to import'
     else:
-        PREBOOTERR = 'Maths module failed to import'
+        if tmp == 2:
+            PREBOOTERR = 'Maths and NumberProcessing Modules Failed to Import'
+        elif tmp == 3:
+            PREBOOTERR = 'NumberProcessing Module Failed to Import'
+else:
+    if not int(''.join(str(maths.__version__).split('.'))) >= 3:
+        PREBOOTERR = 'Maths Module Version 0.0.3 or Greater Required for Operation'
 
 DEV = False
 STOPERRCATCHING = False
 NAME = 'Magic Text'
-__version__ = '0.0.5'
-MUST = (str(NAME+'.py'), 'maths.py')
+__version__ = '0.0.6'
+MUST = (str(NAME+'.py'), 'maths.py', 'numberProcessing.py')
 pyinstallered = False
 ISTERM = False
 global lookup
@@ -194,7 +201,10 @@ class MagicText:
         tmp = []
         for i in range(len(words)):
             if words[i] in problems or words[i].isdigit() or words[i].isdecimal():
-                cats = 'best'
+                if words[i].isdigit() or words[i].isdecimal():
+                    dtmp = numberProcessing.process(int(words[i]))#proccess numbers
+                    for ii in dtmp.split(' '):
+                        tmp.append(str(ii))
             else:
                 tmp.append(words[i])
         words = tmp
@@ -407,13 +417,14 @@ class MagicText:
                 printz('4. Sort Selected Dictionary')
                 printz('5. Merge Selected Dictionary and Another Together')
                 printz('6. Stats of Currently Selected Dictionary')
-                printz('7. Credits')
-                printz('8. Quit')
+                printz('7. Make Text Numbers back into Numbers (one -> 1)')
+                printz('8. Credits')
+                printz('9. Quit')
                 printz()
                 mode = input('Option : ')
                 printz()
                 if mode.isdigit():
-                    if int(mode) in (1, 2, 3, 4, 5, 6, 7, 8):
+                    if int(mode) in (1, 2, 3, 4, 5, 6, 7, 8, 9):
                         break
                     else:
                         printz()
@@ -443,11 +454,26 @@ class MagicText:
                         printz('WARNING: Some words you used do not exist in the dictionary.', file=os.sys.stderr)
                         for word in maths.seperate(dainput.title()):
                             if not word in maths.seperate(redo.title()):
-                                print(word+' Not in Selected Dictionary')
-                        printz('Sentence Without Missing Words: %s' % redo)
+                                print('"'+word+'" Not in Selected Dictionary')
+                                dainput = str(redo)
+                        #printz('Sentence Without Missing Words: %s' % redo)
                         printz()
                     printz('Input was : %s' % dainput)
                     printz('Output is : %s' % output)
+                    if bool(mode):
+                        #process text numbers back into regular numbers
+                        words = list(str(output).split(' '))
+                        tmp = []
+                        dtmp = []
+                        for word in words:
+                            if maths.mkplain(word) in tuple(numberProcessing.full.keys()):
+                                tmp.append(maths.mkplain(word))
+                                dtmp.append(int(tuple(words).index(word)))
+                        procin = list(maths.seplist(tmp, ' '))
+                        procin = str(''.join(procin[0:len(procin)-1]))
+                        data = numberProcessing.process(procin)
+                        if data != 'error':
+                            printz('Found Number in Text: '+str(data))
                 else:
                     printz('ERR: No text to Magicify!', file=os.sys.stderr)
                 printz()
@@ -495,7 +521,7 @@ class MagicText:
                         printz()
                         printz('Added '+str(len(lookup))+' Words to New Dictionary!')
                         printz()
-                        ptintz('Done!')
+                        printz('Done!')
                         file.svdict(name)
                         printz()
                         cats = input('Press Return to continue ')
@@ -512,6 +538,19 @@ class MagicText:
                     cats = input('Press Return to continue ')
             elif not mode-8 > 0: #modes 7 and 8
                 if not bool(mode-7):#mode 7
+                    dainput = input('Input for Number Processing: ')
+                    tmp = []
+                    for i in dainput.split(' '):
+                        if maths.mkplain(i) in tuple(numberProcessing.full.keys()):
+                            tmp.append(maths.mkplain(i))
+                    dainput = list(maths.seplist(tmp, ' '))
+                    dainput = str(''.join(dainput[0:len(dainput)-1]))
+                    printz('Input: '+dainput.title())
+                    output = numberProcessing.process(dainput)
+                    printz('Output: '+str(output))
+                    printz()
+                    cats = input('Press Return to continue ')
+                else:#mode 8
                     printz('This is the '+NAME+' Program, v'+__version__)
                     printz('')
                     printz('Copywrite (c) Cat Inc.')
@@ -527,10 +566,6 @@ class MagicText:
                     printz('Source Code at https://github.com/CoolCat467/Magic-Text/')
                     printz()
                     cats = input('Press Return to continue ')
-                else:#mode 8
-                    printz('Thank you for using the '+NAME+' Program v'+__version__+'!')
-                    time.sleep(2)
-                    break
             else:
                 printz('Thank you for using the '+NAME+' Program v'+__version__+'!')
                 time.sleep(2)
